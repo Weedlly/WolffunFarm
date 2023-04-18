@@ -26,6 +26,9 @@ public class UserResourceController : MonoBehaviour
         get{return Land; }
     }
     public static int Tomato{
+        set{
+            Tomato = value;
+        }
         get{return Tomato; }
     }
     public static int Blueberry{
@@ -49,12 +52,12 @@ public class UserResourceController : MonoBehaviour
 
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+      
     }
 }

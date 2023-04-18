@@ -17,19 +17,14 @@ public class LandTaskController : MonoBehaviour
     }
     void DoingTask(){
         RemoveLandsNotUsing();
-        for (int i = 0; i < _workers.Count; i++)
-        {
-            if(_workers[i].CurrentLandWorking != null){
-                _workers[i].DoingTaskTime -= TIME_UNIT_REDUCING;
-                if(_workers[i].DoingTaskTime <= 0){
-                    _workers[i].CurrentLandWorking.NextStatus();
-                }
-            }
-        }
+        DoingLandTask();
+        DoingWorkerTask();
+    }
+    void DoingLandTask(){
         for (int i = 0; i < _lands.Count; i++)
         {
             _lands[i].NextStatusTime -= TIME_UNIT_REDUCING;
-            if(IsNextToStatus(_lands[i])){
+            if(IsNeedWorker(_lands[i])){
                 Worker worker = FindIdleWorker();
                 if(worker != null){
                     worker.CurrentLandWorking = _lands[i];
@@ -37,9 +32,23 @@ public class LandTaskController : MonoBehaviour
             }
         }
     }
-    
+    void DoingWorkerTask(){
+        for (int i = 0; i < _workers.Count; i++)
+        {
+            if(_workers[i].CurrentLandWorking != null){
+                _workers[i].RemainTaskTime -= TIME_UNIT_REDUCING;
+                if(_workers[i].RemainTaskTime <= 0){
+                    _workers[i].CurrentLandWorking.NextStatus();
+                    _workers[i].CurrentLandWorking.Cropping();
+                    _workers[i].CurrentLandWorking = null;
+                    _workers[i].ResetRemainTaskTime();
+                }
+            }
+        }
+    }
+   
     bool IsLandUsing(Land land){
-        if(land.GrowingProduct == null){
+        if(land.GrowingProduct == null || land.LandStatus == LandStatusType.Idle){
             return true;
         }
         return false;
@@ -54,21 +63,19 @@ public class LandTaskController : MonoBehaviour
         return null;
     }
     
-    bool IsNextToStatus(Land land){
-        if(land.NextStatusTime <= 0){
+    bool IsNeedWorker(Land land){
+        if(land.NextStatusTime <= 0 && land.LandStatus != LandStatusType.EndOfLife){
+            land.NextStatus();
+            return true;
+        }
+        else if((land.NextStatusTime <= 0)){
             return true;
         }
         return false;
     }
     void RemoveLandsNotUsing(){
         _lands.RemoveAll(IsLandUsing);
-    }
-    // void CheckProductGrowing(Land land){
-    //     if(land.RemainGrowingTime)
-    // }
-    void ProductGrowing(){
-
-    }
+    }   
 
     void Start()
     {

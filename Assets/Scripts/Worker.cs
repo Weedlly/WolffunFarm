@@ -4,26 +4,17 @@ using UnityEngine;
 
 public class Worker
 {
-    public enum TaskType{ 
-        Idle,
-        Planting,
-        Growing,
-    }
-    [SerializeField] private int _price;
-    public float DoingTaskTime = 5f;
-    [SerializeField] private TaskType _task;
-    public Land CurrentLandWorking;
     
-    void Start()
-    {
-        
-    }
+    [SerializeField] private int _price;
+    private float DoingTaskTime = 5f;
+    public float RemainTaskTime = 5f;
+    public Land CurrentLandWorking;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(DoingTaskTime <= 0){
-            DoingTaskTime = 5f;
+    public void ResetRemainTaskTime(){
+        if(RemainTaskTime <= 0){
+            RemainTaskTime = DoingTaskTime;
+            Debug.Log("reset doing task time");
         }
     }
+ 
 }

@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+public enum LandStatusType{ 
+        Idle,
+        Growing,
+        EndOfLife
+    }
 public class Land : MonoBehaviour
 {
-    public enum LandStatusType{ 
-        Idle,
-        Planting,
-        Cropping,
-        Reset
-
-    }
-    private float _timeToReset = 60f * 60f;
+    
+    private float _timeToEndOfLife = 6f;
     [SerializeField] private Product _growingProduct;
     public Product GrowingProduct{
         set {_growingProduct = value;}
         get{return _growingProduct;}
+    }
+    [SerializeField] private int _numberProducing;
+    public int NumberProducing{
+        get{return _numberProducing;}
     }
     [SerializeField] private TMP_Text _productTitle;
     [SerializeField] private TMP_Text _nextStatusTimeText;
@@ -44,60 +47,78 @@ public class Land : MonoBehaviour
         switch (_landStatus)
         {
             case LandStatusType.Idle:{
-                ResetLand();
+                
                 break;
             }
-            case LandStatusType.Planting:{
-                _currentLifecycle = 1;
-                _nextStatusTime = _growingProduct.GrowingTime;
-                _landStatus = LandStatusType.Cropping;
+            case LandStatusType.Growing:{
+                GrowingAction();
                 break;
             }
-            case LandStatusType.Cropping:{
-                if(_currentLifecycle != _growingProduct.Lifecycle - 1){
-                    _landStatus = LandStatusType.Reset;
-                    _nextStatusTime = _timeToReset;
-                }else{
-                    _currentLifecycle ++;
-                    _nextStatusTime = _growingProduct.GrowingTime;
-                }
-                break;
-            }
-            case LandStatusType.Reset:{
-                if(_nextStatusTime > 0f){
-                    //Crooping and reset
-                }
-                else{
-                    // Cropping full lifecycle time is over
-                    ResetLand();
-                }
-                _landStatus = LandStatusType.Idle;
+            case LandStatusType.EndOfLife:{
+                EndOfLifeAction();
                 break;
             }
         }
     }
+    public void Cropping(){
+        Debug.Log(_numberProducing);
+        _numberProducing = 0;
+        // Add number
+
+    }
     void ResetLand(){
         _growingProduct = null;
         _currentLifecycle = 0;
+        _numberProducing = 0;
         _nextStatusTime = 0f;
+    }
+    void EndOfLifeAction(){
+        if(_nextStatusTime > 0f){
+            //Lifecycle time is over, collect all product
+            Cropping();
+            ResetLand();
+        }
+        else{
+            // Lifecycle time is over, destroy all product
+            ResetLand();
+        }
+        _landStatus = LandStatusType.Idle;
+    }
+    void GrowingAction(){
+        _currentLifecycle ++;
+        _numberProducing++;
+        if(_currentLifecycle == _growingProduct.Lifecycle){
+            _nextStatusTime = _timeToEndOfLife;
+            _landStatus = LandStatusType.EndOfLife;
+        }else{
+            _nextStatusTime = _growingProduct.GrowingTime;
+            _landStatus = LandStatusType.Growing;
+        }
     }
     public void SetGrowingProduct(){
         _growingProduct = GrowingProductController._productGrowing;
+        
         _productTitle.text = _growingProduct.Name;
-        _landStatus = LandStatusType.Planting;
         _nextStatusTime = _growingProduct.GrowingTime;
         LandTaskController.AddToLandTaskController(this);
+
+        _numberProducing = 0;
+        _currentLifecycle = 0;
+        _nextStatusTime = _growingProduct.GrowingTime;
+        _landStatus = LandStatusType.Growing;
     }
     void Update()
     {
+        
         if(_growingProduct != null){
-            if( _nextStatusTime < 0){
-                _nextStatusTimeText.text = "Waitting";
+            if(_nextStatusTime < 0){
+                _nextStatusTimeText.text =_nextStatusTime.ToString() +" "+ "Waitting";
             }
             else{
-                _nextStatusTimeText.text = _nextStatusTime.ToString();
+                _nextStatusTimeText.text = _nextStatusTime.ToString() + " "+_landStatus;
             }
-            
+        }else{
+            _nextStatusTimeText.text = "Idle";
         }
     }
 }
