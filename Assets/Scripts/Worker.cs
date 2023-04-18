@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Worker : MonoBehaviour
+public class Worker
 {
     public enum TaskType{ 
         Idle,
@@ -10,8 +10,9 @@ public class Worker : MonoBehaviour
         Growing,
     }
     [SerializeField] private int _price;
-    [SerializeField] private float _doingTaskTime;
+    public float DoingTaskTime = 5f;
     [SerializeField] private TaskType _task;
+    public Land CurrentLandWorking;
     
     void Start()
     {
@@ -21,6 +22,8 @@ public class Worker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(DoingTaskTime <= 0){
+            DoingTaskTime = 5f;
+        }
     }
 }

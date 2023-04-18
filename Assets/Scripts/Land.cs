@@ -91,7 +91,13 @@ public class Land : MonoBehaviour
     void Update()
     {
         if(_growingProduct != null){
-            _nextStatusTimeText.text = _nextStatusTime.ToString();
+            if( _nextStatusTime < 0){
+                _nextStatusTimeText.text = "Waitting";
+            }
+            else{
+                _nextStatusTimeText.text = _nextStatusTime.ToString();
+            }
+            
         }
     }
 }

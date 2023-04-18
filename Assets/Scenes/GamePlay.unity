@@ -3919,6 +3919,7 @@ GameObject:
   - component: {fileID: 966694637}
   - component: {fileID: 966694639}
   - component: {fileID: 966694638}
+  - component: {fileID: 966694640}
   m_Layer: 5
   m_Name: UserResource
   m_TagString: Untagged
@@ -3992,6 +3993,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966694636}
   m_CullTransparentMesh: 1
+--- !u!114 &966694640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966694636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da99ae2593c4423fac21ecf315a40b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coinValueText: {fileID: 0}
+  _equitmentLevelValueText: {fileID: 942991861}
+  _workerValueText: {fileID: 483967990}
+  _landValueText: {fileID: 781477159}
+  _tomatoValueText: {fileID: 1106072092}
+  _blueberryValueText: {fileID: 46004202}
+  _milkValueText: {fileID: 2045858960}
+  _strawberryValueText: {fileID: 1441034169}
 --- !u!1001 &1026977403
 PrefabInstance:
   m_ObjectHideFlags: 0

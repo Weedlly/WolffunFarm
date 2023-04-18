@@ -8,7 +8,7 @@ public class LandTaskController : MonoBehaviour
     /// Control lands  have product
     ///</sumary>
     static public List<Land> _lands = new List<Land>();
-    public List<Worker> _workers;
+    public List<Worker> _workers = new List<Worker>();
     const float TIME_UNIT = 1f;
     const float TIME_UNIT_REDUCING = 1f;
     private float _time = TIME_UNIT;
@@ -17,21 +17,43 @@ public class LandTaskController : MonoBehaviour
     }
     void DoingTask(){
         RemoveLandsNotUsing();
+        for (int i = 0; i < _workers.Count; i++)
+        {
+            if(_workers[i].CurrentLandWorking != null){
+                _workers[i].DoingTaskTime -= TIME_UNIT_REDUCING;
+                if(_workers[i].DoingTaskTime <= 0){
+                    _workers[i].CurrentLandWorking.NextStatus();
+                }
+            }
+        }
         for (int i = 0; i < _lands.Count; i++)
         {
             _lands[i].NextStatusTime -= TIME_UNIT_REDUCING;
-            Debug.Log((int)_lands[i].NextStatusTime);
             if(IsNextToStatus(_lands[i])){
-                _lands[i].NextStatus();
+                Worker worker = FindIdleWorker();
+                if(worker != null){
+                    worker.CurrentLandWorking = _lands[i];
+                }
             }
         }
     }
+    
     bool IsLandUsing(Land land){
         if(land.GrowingProduct == null){
             return true;
         }
         return false;
     }
+    Worker FindIdleWorker(){
+        for (int i = 0; i < _workers.Count; i++)
+        {
+            if(_workers[i].CurrentLandWorking == null){
+                return _workers[i];
+            }
+        }
+        return null;
+    }
+    
     bool IsNextToStatus(Land land){
         if(land.NextStatusTime <= 0){
             return true;
@@ -41,16 +63,16 @@ public class LandTaskController : MonoBehaviour
     void RemoveLandsNotUsing(){
         _lands.RemoveAll(IsLandUsing);
     }
-        // void CheckProductGrowing(Land land){
-        //     if(land.RemainGrowingTime)
-        // }
+    // void CheckProductGrowing(Land land){
+    //     if(land.RemainGrowingTime)
+    // }
     void ProductGrowing(){
 
     }
 
     void Start()
     {
-        
+        _workers.Add(new Worker());
     }
     void Bootstrap(){
 
