@@ -12,7 +12,12 @@ public class LandTaskController : MonoBehaviour
     const float TIME_UNIT = 1f;
     const float TIME_UNIT_REDUCING = 1f;
     private float _time = TIME_UNIT;
+    void Start()
+    {
+        _workers.Add(new Worker());
+    }
     static public void AddToLandTaskController(Land land){
+        _lands.Remove(land);
         _lands.Add(land);
     }
     void DoingTask(){
@@ -39,7 +44,9 @@ public class LandTaskController : MonoBehaviour
                 _workers[i].RemainTaskTime -= TIME_UNIT_REDUCING;
                 if(_workers[i].RemainTaskTime <= 0){
                     _workers[i].CurrentLandWorking.NextStatus();
-                    _workers[i].CurrentLandWorking.Cropping();
+                    if(_workers[i].CurrentLandWorking.LandStatus == LandStatusType.EndOfLife){
+                        _workers[i].CurrentLandWorking.Cropping();
+                    }
                     _workers[i].CurrentLandWorking = null;
                     _workers[i].ResetRemainTaskTime();
                 }
@@ -77,10 +84,7 @@ public class LandTaskController : MonoBehaviour
         _lands.RemoveAll(IsLandUsing);
     }   
 
-    void Start()
-    {
-        _workers.Add(new Worker());
-    }
+    
     void Bootstrap(){
 
     }

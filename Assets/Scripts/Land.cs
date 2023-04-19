@@ -96,20 +96,21 @@ public class Land : MonoBehaviour
         }
     }
     public void SetGrowingProduct(){
-        _growingProduct = GrowingProductController._productGrowing;
-        
-        _productTitle.text = _growingProduct.Name;
-        _nextStatusTime = _growingProduct.GrowingTime;
-        LandTaskController.AddToLandTaskController(this);
+        if(UserToolController._productGrowing != null){
+            _growingProduct = UserToolController._productGrowing;
+            
+            _productTitle.text = _growingProduct.Name;
+            _nextStatusTime = _growingProduct.GrowingTime;
+            LandTaskController.AddToLandTaskController(this);
 
-        _numberProducing = 0;
-        _currentLifecycle = 0;
-        _nextStatusTime = _growingProduct.GrowingTime;
-        _landStatus = LandStatusType.Growing;
+            _numberProducing = 0;
+            _currentLifecycle = 0;
+            _nextStatusTime = _growingProduct.GrowingTime;
+            _landStatus = LandStatusType.Growing;
+        }
     }
     void Update()
     {
-        
         if(_growingProduct != null){
             if(_nextStatusTime < 0){
                 _nextStatusTimeText.text =_nextStatusTime.ToString() +" "+ "Waitting";

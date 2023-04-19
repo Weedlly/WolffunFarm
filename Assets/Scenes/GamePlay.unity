@@ -246,6 +246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 34784732}
+  - component: {fileID: 34784733}
   m_Layer: 5
   m_Name: UserTools
   m_TagString: Untagged
@@ -278,6 +279,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -13}
   m_SizeDelta: {x: 53.5, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &34784733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34784731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0cd914e9181348c88c7d2f5c828ec3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _eventSystem: {fileID: 682146176}
 --- !u!1 &46004200
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,9 +1903,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1545088084}
+      - m_Target: {fileID: 34784731}
         m_TargetAssemblyTypeName: GrowingProductController, Assembly-CSharp
-        m_MethodName: SetProductGrowing
+        m_MethodName: 
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 407850297}
@@ -3920,6 +3934,7 @@ GameObject:
   - component: {fileID: 966694639}
   - component: {fileID: 966694638}
   - component: {fileID: 966694640}
+  - component: {fileID: 966694641}
   m_Layer: 5
   m_Name: UserResource
   m_TagString: Untagged
@@ -4005,7 +4020,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da99ae2593c4423fac21ecf315a40b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coinValueText: {fileID: 0}
+  _userResourceView: {fileID: 966694641}
+--- !u!114 &966694641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966694636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32315a4bb3a64e7e89b3ac873a36fc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coinValueText: {fileID: 892594614}
   _equitmentLevelValueText: {fileID: 942991861}
   _workerValueText: {fileID: 483967990}
   _landValueText: {fileID: 781477159}
@@ -5139,7 +5167,6 @@ GameObject:
   - component: {fileID: 1545088083}
   - component: {fileID: 1545088082}
   - component: {fileID: 1545088081}
-  - component: {fileID: 1545088084}
   m_Layer: 5
   m_Name: GrowingProductButton
   m_TagString: Untagged
@@ -5263,18 +5290,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1545088079}
   m_CullTransparentMesh: 1
---- !u!114 &1545088084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545088079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30ee3430dc581402f96db43781b5a22a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1589579409
 GameObject:
   m_ObjectHideFlags: 0

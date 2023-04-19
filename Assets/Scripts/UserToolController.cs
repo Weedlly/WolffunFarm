@@ -3,19 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+
+public enum UserActionTypeEnum{
+    GrowingProduct,
+    CroppingProduct,
+    SellingProduct
+}
 public class UserToolController : MonoBehaviour
 {
-    enum UserActionTypeEnum{
-        GrowingProduct,
-        CroppingProduct,
-        SellingProduct
-    }
+    
+    static public Product _productGrowing;
+    static public UserActionTypeEnum _userActionTypeEnum;
     public EventSystem _eventSystem;
     void Start()
     {
         
     }
-
+    public void SetProductGrowing(Product product){
+        _productGrowing = product;
+        _userActionTypeEnum = UserActionTypeEnum.GrowingProduct;
+    }
     // Update is called once per frame
     void Update()
     {
