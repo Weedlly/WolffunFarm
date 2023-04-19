@@ -8,13 +8,13 @@ public class ShopView : MonoBehaviour
     
     [SerializeField] private TMP_Text _title;
     [SerializeField] private TMP_Text _price;
-    public Button _productBt;
+    public Button _purchaseProductBt;
     private const string CONST_POSTFIX = "Coin";
 
-    public void UpdateShopView(Product product)
+    public void UpdateShopView(WareHouse.Bin bin)
     {
-        _title.text = product.Name;
-        _price.text = product.BuyingPrice.ToString() + " " + CONST_POSTFIX;
+        _title.text = bin.ProductOfBin.Name;
+        _price.text = bin.ProductOfBin.PurchasePrice.ToString() + " " + CONST_POSTFIX;
     }
 }
 

@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class SellProductController : MonoBehaviour
 {
-    public List<Product> _products;
+    public WareHouse _wareHouse;
     public List<SellProductView> _sellProductViews;
     void Start()
     {
+        _wareHouse = DataController.LocalLoadXML<UserResource>("UserResource.xml").UserWareHouse;
     }
 
     void Update()
     {
-        if(_products != null && _products.Count == _sellProductViews.Count){
-            for (int i = 0; i < _products.Count; i++)
-            {
-                _sellProductViews[i].UpdateSellProductView(_products[i]);
-            }
+        for (int i = 0; i < _wareHouse.ProductBins.Count && i <_sellProductViews.Count; i++)
+        {
+            _sellProductViews[i].UpdateSellProductView(_wareHouse.ProductBins[i]);
         }
     }
 }

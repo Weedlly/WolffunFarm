@@ -11,9 +11,9 @@ public class SellProductView : MonoBehaviour
     [SerializeField] private Button _productBt;
     private const string CONST_POSTFIX = "Coin";
 
-    public void UpdateSellProductView(Product product)
+    public void UpdateSellProductView(WareHouse.Bin bin)
     {
-        _title.text = product.Name;
-        _price.text = product.PurchasePrice.ToString() + " " + CONST_POSTFIX;
+        _title.text = bin.ProductOfBin.Name;
+        _price.text = bin.ProductOfBin.BuyingPrice.ToString() + " " + CONST_POSTFIX;
     }
 }
