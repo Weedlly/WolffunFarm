@@ -8,7 +8,7 @@ public class LandTaskController : MonoBehaviour
     /// Control lands  have product
     ///</sumary>
     static public List<Land> _lands = new List<Land>();
-    public List<Worker> _workers = new List<Worker>();
+    static public  List<Worker> _workers = new List<Worker>();
     const float TIME_UNIT = 1f;
     const float TIME_UNIT_REDUCING = 1f;
     private float _time = TIME_UNIT;

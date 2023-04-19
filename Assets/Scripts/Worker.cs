@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Worker
 {
-    
-    [SerializeField] private int _price;
+    private int _price;
+    public int Price{
+        set{_price = value;}
+        get{return _price; }
+    }
     private float DoingTaskTime = 5f;
     public float RemainTaskTime = 5f;
     public Land CurrentLandWorking;

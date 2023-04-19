@@ -9,20 +9,21 @@ public class UserResourceView : MonoBehaviour
     [SerializeField] private TMP_Text _equitmentLevelValueText;
     [SerializeField] private TMP_Text _workerValueText;
     [SerializeField] private TMP_Text _landValueText;
-    [SerializeField] private TMP_Text _tomatoValueText;
-    [SerializeField] private TMP_Text _blueberryValueText;
-    [SerializeField] private TMP_Text _milkValueText;
-    [SerializeField] private TMP_Text _strawberryValueText;
+    [SerializeField] private List<TMP_Text> _productNameText;
+    [SerializeField] private List<TMP_Text> _productValuesText;
 
     public void UpdateUserResource(UserResource userResource){
         _coinValueText.text = userResource.Coin.ToString();
-        _equitmentLevelValueText.text = userResource.EquipmenLevel.ToString();
-        _workerValueText.text = userResource.Worker.ToString();
-        _landValueText.text = userResource.Land.ToString();
-        _tomatoValueText.text = userResource.TomatoFruit.ToString();
-        _blueberryValueText.text = userResource.BlueberryFruit.ToString();
-        _milkValueText.text = userResource.CowMilk.ToString();
-        _strawberryValueText.text = userResource.StrawberryFruit.ToString();
+        _equitmentLevelValueText.text = userResource.Equipment.Level.ToString();
+        _workerValueText.text = userResource.NumWorkers.ToString();
+        _landValueText.text = userResource.NumLands.ToString();
 
+        List<WareHouse.Bin> bins = userResource.UserWareHouse.ProductBins;
+        if(bins.Count == _productValuesText.Count){
+            for (int i = 0; i < bins.Count; i++)
+            {
+                _productValuesText[i].text = bins[i].NumProductHarvested.ToString();
+            }
+        }
     }
 }

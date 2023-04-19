@@ -11,8 +11,9 @@ public class UserResourceController : MonoBehaviour
 
     void Start()
     {
-       UserResource = new UserResource();
-       _userResourceView = GetComponent<UserResourceView>();
+      _userResource = DataController.LocalLoadXML<UserResource>("UserResource.xml");
+      DataController.LocalWriteXML<UserResource>("UserResource.xml",_userResource);
+      _userResourceView = GetComponent<UserResourceView>();
     }
     void Update()
     {

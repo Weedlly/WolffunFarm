@@ -1,32 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Xml.Serialization;
 
-public class Product : MonoBehaviour {
+
+// [XmlRoot(ElementName = "product")]
+public class Product {
     [SerializeField] private string _name;
+    [SerializeField] private float _growingTime;
+    [SerializeField] private int _lifecycle;
+    [SerializeField] private int _purchasePrice;
+    [SerializeField] private int _buyingPrice;
+
+    [XmlElement(ElementName = "name")]
     public string Name{
         set {_name = value;}
         get{return _name;}
     }
-    [SerializeField] private int _price;
-    [SerializeField] private float _growingTime;
+    [XmlElement(ElementName = "growingTime")]
     public float GrowingTime{
         set {_growingTime = value;}
         get{return _growingTime;}
     }
-    [SerializeField] private int _lifecycle;
+    [XmlElement(ElementName = "lifecycle")]
     public int Lifecycle{
         set {_lifecycle = value;}
         get{return _lifecycle;}
     }
-    [SerializeField] private int _sellingPrice;
-    [SerializeField] private int _shopSellingPrice;
-    void Start()
-    {
-        
+    [XmlElement(ElementName = "purchasePrice")]
+    public int PurchasePrice{
+        set {_purchasePrice = value;}
+        get{return _purchasePrice;}
     }
-    void Update()
-    {
-        
+    [XmlElement(ElementName = "buyingPrice")]
+    public int BuyingPrice{
+        set {_buyingPrice = value;}
+        get{return _buyingPrice;}
     }
 }
