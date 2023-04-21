@@ -5,16 +5,20 @@ using System.Xml.Serialization;
 using System;
 
 [XmlRoot(ElementName = "userResource")]
-public class UserResource 
+public class UserResource
 {
     private int _coin;
     private Equipment _equipment;
+    private int _workerPrice;
     private int _numWorkers;
-    private int _land;
+    private int _taskFinishingTime;
+    private int _landPrice;
+    private int _numLands;
+    private int _productDestroyTime;
     private WareHouse _userWareHouse;
     private string _lastOnlineTime;
     private int _targetCoin;
-
+    
     [XmlElement(ElementName = "coin")]
     public int Coin{
         set{_coin = value;}
@@ -32,8 +36,28 @@ public class UserResource
     }
     [XmlElement(ElementName = "numLands")]
     public int NumLands{
-        set{_land = value;}
-        get{return _land; }
+        set{_numLands = value;}
+        get{return _numLands; }
+    }
+    [XmlElement(ElementName = "taskFinishingTime")]
+    public int TaskFinishingTime{
+        set{_taskFinishingTime = value;}
+        get{return _taskFinishingTime; }
+    }
+    [XmlElement(ElementName = "workerPrice")]
+    public int WorkerPrice{
+        set{_workerPrice = value;}
+        get{return _workerPrice; }
+    }
+    [XmlElement(ElementName = "landPrice")]
+    public int LandPrice{
+        set{_landPrice = value;}
+        get{return _landPrice; }
+    }
+    [XmlElement(ElementName = "productDestroyTime")]
+    public int ProductDestroyTime{
+        set{_productDestroyTime = value;}
+        get{return _productDestroyTime; }
     }
     [XmlElement(ElementName = "wareHouse")]
     public WareHouse UserWareHouse{
@@ -83,9 +107,9 @@ public class UserResource
     #endregion
 
     #region WorkerAction
-    public bool BuyWorker(int price){
-        if(IsEnoughCoint(price)){
-            _coin -= price;
+    public bool BuyWorker(){
+        if(IsEnoughCoint(_workerPrice)){
+            _coin -= _workerPrice;
             _numWorkers++;
             return true;
         }
@@ -94,14 +118,47 @@ public class UserResource
     #endregion
 
     #region LandAction
-    public bool BuyLand(int price){
-        if(IsEnoughCoint(price)){
-            _coin -= price;
-            _land++;
+    public bool BuyLand(){
+        if(IsEnoughCoint(_landPrice)){
+            _coin -= _landPrice;
+            _numLands++;
             return true;
         }
         return false;
     }
     #endregion
-   
+
+    #region Product
+    public bool SellProduct(WareHouse.Bin bin){
+        if(bin.IsEnoughHarvestedProduct()){
+            _coin += bin.ProductOfBin.SellingPrice;
+            bin.NumProductHarvested --;
+            return true;
+        }
+        return false;
+    }
+    public bool PurcharseProduct(WareHouse.Bin bin){
+        int productPrice = bin.ProductOfBin.PurchasePrice;
+        if(IsEnoughCoint(productPrice)){
+            _coin -= productPrice;
+            bin.NumProductSeed += bin.ProductOfBin.SellingNumber;
+            return true;
+        }
+        return false;
+    }
+    #endregion
+
+    #region LastOnlineTime
+    public void UpdateCurrentTime(){
+        _lastOnlineTime = DateTime.Now.ToString();
+    }
+    public float TimeUserOffline(){
+        DateTime currentDate = DateTime.Now;
+        DateTime lastOnlineTime = DateTime.Parse(_lastOnlineTime);
+
+        long elapsedTicks = currentDate.Ticks - lastOnlineTime.Ticks;
+        TimeSpan elapsedSpan = new TimeSpan(elapsedTicks);
+        return (float)elapsedSpan.TotalSeconds;
+    }
+    #endregion
 }

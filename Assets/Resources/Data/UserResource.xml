@@ -8,8 +8,12 @@
         <updatePrice>500</updatePrice>
         <buffPercent>10</buffPercent>
     </equipment>
+    <workerPrice>500</workerPrice>
+    <taskFinishingTime>120</taskFinishingTime>
     <numWorkers>1</numWorkers>
+    <landPrice>500</landPrice>
     <numLands>3</numLands>
+    <productDestroyTime>3600</productDestroyTime>
     <wareHouse>
         <bin>
             <product>
@@ -17,7 +21,8 @@
                 <growingTime>600</growingTime>
                 <lifecycle>40</lifecycle>
                 <purchasePrice>30</purchasePrice>
-                <buyingPrice>5</buyingPrice>
+                <sellingPrice>5</sellingPrice>
+                <sellingNumber>1</sellingNumber>
             </product>
             <numProductSeed>10</numProductSeed>
             <numProductHarvested>0</numProductHarvested>
@@ -28,7 +33,8 @@
                 <growingTime>900</growingTime>
                 <lifecycle>40</lifecycle>
                 <purchasePrice>50</purchasePrice>
-                <buyingPrice>8</buyingPrice>
+                <sellingPrice>8</sellingPrice>
+                <sellingNumber>1</sellingNumber>
             </product>
             <numProductSeed>10</numProductSeed>
             <numProductHarvested>0</numProductHarvested>
@@ -39,7 +45,8 @@
                 <growingTime>1800</growingTime>
                 <lifecycle>100</lifecycle>
                 <purchasePrice>100</purchasePrice>
-                <buyingPrice>15</buyingPrice>
+                <sellingPrice>15</sellingPrice>
+                <sellingNumber>1</sellingNumber>
             </product>
             <numProductSeed>10</numProductSeed>
             <numProductHarvested>0</numProductHarvested>
@@ -50,7 +57,8 @@
                 <growingTime>300</growingTime>
                 <lifecycle>20</lifecycle>
                 <purchasePrice>400</purchasePrice>
-                <buyingPrice>5</buyingPrice>
+                <sellingPrice>5</sellingPrice>
+                <sellingNumber>10</sellingNumber>
             </product>
             <numProductSeed>0</numProductSeed>
             <numProductHarvested>0</numProductHarvested>

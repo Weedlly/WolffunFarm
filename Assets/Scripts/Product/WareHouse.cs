@@ -26,7 +26,30 @@ public class WareHouse
             set {_numProductHarvested = value;}
             get{return _numProductHarvested;}
         }
-        
+
+        public bool IsEnoughHarvestedProduct(){
+            if(_numProductHarvested > 0){
+                return true;
+            }
+            return false;
+        }
+        public void HarvestingProduct(int num){
+            _numProductHarvested += num;
+        }
+
+        public bool IsEnoughSeed(){
+            if(_numProductSeed > 0){
+                return true;
+            }
+            return false;
+        }
+        public bool UsingASeed(){
+            if(IsEnoughSeed()){
+                _numProductSeed--;
+                return true;
+            }
+            return false;
+        }
     }
     
     private List<Bin> _productBins;
@@ -35,5 +58,14 @@ public class WareHouse
     public List<Bin> ProductBins{
         set{_productBins = value;}
         get{return _productBins;}
+    }
+    public WareHouse.Bin FindBinOfProduct(Product product){
+        foreach (var bin in _productBins)
+        {
+            if(bin.ProductOfBin.Name == product.Name){
+                return bin;
+            }
+        }
+        return null;
     }
 }

@@ -10,8 +10,9 @@ public class UserResourceController : MonoBehaviour
 
     void Start()
     {
-      _userResource = DataController.LocalLoadXML<UserResource>("UserResource.xml");
+      _userResource = DataLive.Instance.UserResource;
       _userResourceView = GetComponent<UserResourceView>();
+      
     }
     void Update()
     {

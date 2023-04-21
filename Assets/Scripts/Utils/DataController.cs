@@ -11,11 +11,19 @@ public class DataController : MonoBehaviour
 {
     /// <summary>
     /// </summary>
-    void Start()
-    {
-        Debug.Log(Application.persistentDataPath);
+    public static T LoadFromResourceXML<T>(string path){
+        try{
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            TextAsset textAsset = (TextAsset) Resources.Load(path);  
+            using  (var reader = new System.IO.StringReader(textAsset.text)){
+                return (T)serializer.Deserialize(reader);
+            }
+        }
+        catch(Exception e){
+            Debug.LogError("Exception importing xml file " + path + " :" + e);
+            return default;
+        }
     }
-
      public static bool LocalWriteXML<T>(string filename, T dataList){
         try{
             XmlSerializer xs = new XmlSerializer(typeof(T));
@@ -26,7 +34,7 @@ public class DataController : MonoBehaviour
             return true;
         }
         catch(Exception e){
-            Debug.LogError("Exception write  down xml file " + filename +": " + e);
+            Debug.LogError("Exception write down xml file " + filename +": " + e);
         }
         return false;
     }

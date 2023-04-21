@@ -25,5 +25,7 @@ public class Equipment
         set{_buffPercent = value;}
         get{return _buffPercent;}
     }
-    
+    public float RemainTimeAfterBuff(float time){
+        return (time / (1 + ((_level * _buffPercent) / 100)));
+    }
 }

@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class SellProductView : MonoBehaviour
 {
     
-    [SerializeField] private TMP_Text _title;
-    [SerializeField] private TMP_Text _price;
-    [SerializeField] private Button _productBt;
+    public TMP_Text _title;
+    public TMP_Text _price;
+    public Button _sellingProductBt;
     private const string CONST_POSTFIX = "Coin";
 
     public void UpdateSellProductView(WareHouse.Bin bin)
     {
         _title.text = bin.ProductOfBin.Name;
-        _price.text = bin.ProductOfBin.BuyingPrice.ToString() + " " + CONST_POSTFIX;
+        _price.text = bin.ProductOfBin.SellingPrice.ToString() + " " + CONST_POSTFIX;
     }
 }

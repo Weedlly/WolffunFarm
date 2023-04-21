@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class ShopView : MonoBehaviour
 {
     
-    [SerializeField] private TMP_Text _title;
-    [SerializeField] private TMP_Text _price;
+    public TMP_Text _title;
+    public TMP_Text _price;
     public Button _purchaseProductBt;
     private const string CONST_POSTFIX = "Coin";
 

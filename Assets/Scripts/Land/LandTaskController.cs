@@ -12,15 +12,17 @@ public class LandTaskController : MonoBehaviour
     const float TIME_UNIT = 1f;
     const float TIME_UNIT_REDUCING = 1f;
     private float _time = TIME_UNIT;
+    private float _timeNeedToBoottrap;
     void Start()
     {
         _workers.Add(new Worker());
+        Bootstrap();
     }
     static public void AddToLandTaskController(Land land){
         _lands.Remove(land);
         _lands.Add(land);
     }
-    void DoingTask(){
+    void DoingTasks(){
         RemoveLandsNotUsing();
         DoingLandTask();
         DoingWorkerTask();
@@ -86,13 +88,19 @@ public class LandTaskController : MonoBehaviour
 
     
     void Bootstrap(){
-
+        _timeNeedToBoottrap = DataLive.Instance.UserResource.TimeUserOffline();
+        while((int)_timeNeedToBoottrap >= 0){
+            DoingTasks();
+            _timeNeedToBoottrap -= 1f;
+        }
     }
-    // Update is called once per frame
     void Update()
     {
+        if((int)_timeNeedToBoottrap >= 0){
+            return;
+        }
         if(_lands.Count != 0 && (_time -= Time.deltaTime) < 0){
-            DoingTask();
+            DoingTasks();
             _time = TIME_UNIT;
         }
     }

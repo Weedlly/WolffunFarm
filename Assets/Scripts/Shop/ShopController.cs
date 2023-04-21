@@ -1,30 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ShopController : MonoBehaviour
 {
-    public WareHouse _wareHouse;
+    public List<WareHouse.Bin> _bins;
     public List<ShopView> _shopViews;
+    public Button _showProductBt;
+    public GameObject _products;
     void Start()
     {
-        _wareHouse = DataController.LocalLoadXML<UserResource>("UserResource.xml").UserWareHouse;
+        _bins = DataLive.Instance.UserResource.UserWareHouse.ProductBins;
+        InitButtonOnclick();
     }
-
-    void Update()
-    {
-        for (int i = 0; i < _wareHouse.ProductBins.Count && i <_shopViews.Count; i++)
+    void InitButtonOnclick(){
+        for (int i = 0; i < _bins.Count && i <_shopViews.Count; i++)
         {
-            Product product = _wareHouse.ProductBins[i].ProductOfBin;
+            WareHouse.Bin bin = _bins[i];
             _shopViews[i]._purchaseProductBt.onClick.AddListener(
                     delegate {
-                        PurchaseSeed(product);
+                        PurchaseSeed(bin);
                         });
-                _shopViews[i].UpdateShopView(_wareHouse.ProductBins[i]);
+        }
+        _showProductBt.onClick.AddListener(
+            delegate {
+                ShowProductHandler(_products);
+            });
+    }
+    void Update()
+    {
+        for (int i = 0; i < _bins.Count && i <_shopViews.Count; i++)
+        {
+            _shopViews[i].UpdateShopView(_bins[i]);
         }
     }
-    void PurchaseSeed(Product product){
-        // _userResource.
+    void PurchaseSeed(WareHouse.Bin bin){
+        if(DataLive.Instance.UserResource.PurcharseProduct(bin)){
+            Debug.Log("Purcharse " + bin.ProductOfBin.Name );
+            return;
+        }
+        Debug.Log("Not enough money");
+    }
+    void ShowProductHandler(GameObject gameObject){
+        gameObject.SetActive(!gameObject.activeSelf);
     }
 }
 
