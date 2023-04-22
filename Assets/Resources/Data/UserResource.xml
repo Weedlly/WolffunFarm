@@ -2,7 +2,7 @@
 <userResource
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <coin>0</coin>
+    <coin>100000</coin>
     <equipment>
         <level>1</level>
         <updatePrice>500</updatePrice>
@@ -11,9 +11,9 @@
     <workerPrice>500</workerPrice>
     <taskFinishingTime>120</taskFinishingTime>
     <numWorkers>1</numWorkers>
-    <landPrice>500</landPrice>
-    <numLands>3</numLands>
     <productDestroyTime>3600</productDestroyTime>
+    <lastOnlineTime>4/22/2023 10:34:12 AM</lastOnlineTime>
+    <targetCoin>10000000</targetCoin>
     <wareHouse>
         <bin>
             <product>
@@ -64,6 +64,11 @@
             <numProductHarvested>0</numProductHarvested>
         </bin>
     </wareHouse>
-    <lastOnlineTime>0</lastOnlineTime>
-    <targetCoin>10000000</targetCoin>
+    <farmland>
+        <landPrice>500</landPrice>
+        <numLands>0</numLands>
+        <lands>
+            
+        </lands>
+    </farmland>
 </userResource>

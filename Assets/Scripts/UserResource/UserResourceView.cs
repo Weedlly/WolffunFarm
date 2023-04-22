@@ -16,7 +16,7 @@ public class UserResourceView : MonoBehaviour
         _coinValueText.text = userResource.Coin.ToString();
         _equitmentLevelValueText.text = userResource.Equipment.Level.ToString();
         _workerValueText.text = userResource.NumWorkers.ToString();
-        _landValueText.text = userResource.NumLands.ToString();
+        _landValueText.text = userResource.Farmland.NumLands.ToString();
 
         List<WareHouse.Bin> bins = userResource.UserWareHouse.ProductBins;
         if(bins.Count == _productValuesText.Count){
@@ -26,4 +26,6 @@ public class UserResourceView : MonoBehaviour
             }
         }
     }
+
+    
 }

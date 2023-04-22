@@ -1,98 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using System.Xml.Serialization;
 
 public enum LandStatusType{ 
-        Idle,
-        Growing,
-        EndOfLife,
-        WorkerDoing
-    }
-public class Land : MonoBehaviour
+    Idle,
+    Growing,
+    EndOfLife,
+    WorkerDoing
+}
+
+public class Land
 {
     private float _timeToEndOfLife;
     [SerializeField] private Product _growingProduct;
     [SerializeField] private int _numberHarvested;
     [SerializeField] private int _currentLifecycle;
     [SerializeField] private float _nextStatusTime;
-    [SerializeField] private LandStatusType _landStatus;
-    [SerializeField] private TMP_Text _productTitle;
-    [SerializeField] private TMP_Text _nextStatusTimeText;  
-    [SerializeField] private TMP_Text _numberHarvestedText;  
+    [SerializeField] private LandStatusType _landStatus; 
+
+    [XmlElement(ElementName = "product")]
     public Product GrowingProduct{
         set {_growingProduct = value;}
         get{return _growingProduct;}
     }
+    [XmlElement(ElementName = "numberHarvested")]
     public int NumberHarvested{
+        set {_numberHarvested = value;}
         get{return _numberHarvested;}
     }
+    [XmlElement(ElementName = "currentLifeCycle")]
     public int CurrentLifeCycle{
         set {_currentLifecycle = value;}
         get{return _currentLifecycle;}
     }
-    
+    [XmlElement(ElementName = "nextStatusTime")]
     public float NextStatusTime{
         set{_nextStatusTime = value;}
         get{return _nextStatusTime;}
     }
-    
+    [XmlElement(ElementName = "landStatus")]
     public LandStatusType LandStatus{
         set{_landStatus = value;}
         get{return _landStatus;}
     }
-    void Start() {
-        _landStatus = LandStatusType.Idle;
-    }
-    void Update()
-    {
-        if(_growingProduct != null){
-            if(_nextStatusTime < 0){
-                _nextStatusTimeText.text =((int)_nextStatusTime).ToString() +" "+ LandStatusType.WorkerDoing;
-            }
-            else{
-                _nextStatusTimeText.text = ((int)_nextStatusTime).ToString() + " " + _landStatus;
-            }
-            _numberHarvestedText.gameObject.SetActive(true);
-            _numberHarvestedText.text = "X" + _numberHarvested.ToString();
-        }else{
-            _productTitle.text = "None";
-            _numberHarvestedText.gameObject.SetActive(false);
-            _nextStatusTimeText.text = LandStatusType.Idle.ToString();
-        }
-    }
-    public void UserActionHandler(){
-        WareHouse.Bin bin = GrowingProductController.ProductBinGrowing;
-        bool IsCropping = CroppingProductController.IsCroppingProduct;
-        if(bin != null && bin.IsEnoughSeed()){         
-            UserPlantingProduct(bin);
-        }
-        else if(IsCropping == true){
-            UserCroppingProduct();
-        }
-    }
-    private void UserPlantingProduct(WareHouse.Bin bin){
-        bin.UsingASeed();
+    // void Start() {
+    //     _landStatus = LandStatusType.Idle;
+    // }
+    // public void UserActionHandler(){
+    //     WareHouse.Bin bin = GrowingProductController.ProductBinGrowing;
+    //     bool IsCropping = CroppingProductController.IsCroppingProduct;
+    //     if(bin != null && bin.IsEnoughSeed()){         
+    //         UserPlantingProduct(bin);
+    //     }
+    //     else if(IsCropping == true){
+    //         UserCroppingProduct();
+    //     }
+    // }
+    // private void UserPlantingProduct(WareHouse.Bin bin){
+    //     bin.UsingASeed();
 
-        _growingProduct = bin.ProductOfBin;
+    //     _growingProduct = bin.ProductOfBin;
 
-        _productTitle.text = _growingProduct.Name;
-        _nextStatusTime = DataLive.Instance.UserResource.Equipment.RemainTimeAfterBuff(_growingProduct.GrowingTime);
+    //     _nextStatusTime = DataLive.Instance.UserResource.Equipment.RemainTimeAfterBuff(_growingProduct.GrowingTime);
 
-        _numberHarvested = 0;
-        _currentLifecycle = 0;
+    //     _numberHarvested = 0;
+    //     _currentLifecycle = 0;
 
-        _landStatus = LandStatusType.Growing;
+    //     _landStatus = LandStatusType.Growing;
 
-        LandTaskController.AddToLandTaskController(this);
-    }
+    //     LandTaskController.AddToLandTaskController(this);
+    // }
 
-    private void UserCroppingProduct(){
-        if(_numberHarvested > 0 && (_landStatus == LandStatusType.Growing || _landStatus == LandStatusType.EndOfLife)){
-            Cropping();
-            NextStatus();
-        }
-    } 
+    // private void UserCroppingProduct(){
+    //     if(_numberHarvested > 0 && (_landStatus == LandStatusType.Growing || _landStatus == LandStatusType.EndOfLife)){
+    //         Cropping();
+    //         NextStatus();
+    //     }
+    // } 
     public void NextStatus(){
         switch (_landStatus)
         {

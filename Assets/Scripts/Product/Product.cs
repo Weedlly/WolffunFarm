@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Xml.Serialization;
 
 
-// [XmlRoot(ElementName = "product")]
+[XmlRoot(ElementName = "product")]
 public class Product {
     [SerializeField] private string _name;
     [SerializeField] private float _growingTime;

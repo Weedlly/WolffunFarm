@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 public class DataLive : Singleton<DataLive>
 {
+    const string USER_RESOURCE_FILE_NAME = "UserResource.xml";
     private UserResource _userResource;
     public UserResource UserResource{
         set{
@@ -16,8 +17,8 @@ public class DataLive : Singleton<DataLive>
         }
     }
     void LoadData(){
-        if (File.Exists(Application.persistentDataPath + "/" + "UserResource.xml")){
-            _userResource = DataController.LocalLoadXML<UserResource>("UserResource.xml");
+        if (File.Exists(Application.persistentDataPath + "/" + USER_RESOURCE_FILE_NAME)){
+            _userResource = DataController.LocalLoadXML<UserResource>(USER_RESOURCE_FILE_NAME);
             Debug.Log("Old user");
         }
         else {
@@ -26,11 +27,11 @@ public class DataLive : Singleton<DataLive>
         }
     }
     public void SaveData(){
-        DataController.LocalWriteXML<UserResource>("UserResource.xml",_userResource);
+        DataController.LocalWriteXML<UserResource>(USER_RESOURCE_FILE_NAME,_userResource);
     }
 
     void CreateNewUserResourceFile(){
         _userResource = DataController.LoadFromResourceXML<UserResource>("Data/UserResource");
-        DataController.LocalWriteXML<UserResource>("UserResource.xml",_userResource);
+        DataController.LocalWriteXML<UserResource>(USER_RESOURCE_FILE_NAME,_userResource);
     }
 }

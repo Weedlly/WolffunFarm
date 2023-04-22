@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1192080628070150816}
   - component: {fileID: 1192080628070150818}
   - component: {fileID: 1192080628070150817}
-  - component: {fileID: -772070471017828635}
   - component: {fileID: 8282179805578659393}
+  - component: {fileID: -3206188222871535792}
   m_Layer: 5
   m_Name: Land
   m_TagString: Untagged
@@ -81,25 +81,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-772070471017828635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1192080628070150847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c28d5bf35ec62448d90115a09db82f37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _numberHarvested: 0
-  _currentLifecycle: 0
-  _nextStatusTime: 0
-  _landStatus: 0
-  _productTitle: {fileID: 1192080628142739279}
-  _nextStatusTimeText: {fileID: 1192080628306722872}
-  _numberHarvestedText: {fileID: 7573812281918548505}
 --- !u!114 &8282179805578659393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,19 +124,23 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1192080628070150817}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -772070471017828635}
-        m_TargetAssemblyTypeName: Land, Assembly-CSharp
-        m_MethodName: UserActionHandler
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &-3206188222871535792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192080628070150847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a0cdd534a9b4deda321aac870cdd89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _productTitle: {fileID: 1192080628142739279}
+  _nextStatusTimeText: {fileID: 1192080628306722872}
+  _numberHarvestedText: {fileID: 7573812281918548505}
+  _userActionBt: {fileID: 8282179805578659393}
 --- !u!1 &1192080628142739277
 GameObject:
   m_ObjectHideFlags: 0

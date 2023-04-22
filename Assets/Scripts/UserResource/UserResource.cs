@@ -12,12 +12,11 @@ public class UserResource
     private int _workerPrice;
     private int _numWorkers;
     private int _taskFinishingTime;
-    private int _landPrice;
-    private int _numLands;
     private int _productDestroyTime;
-    private WareHouse _userWareHouse;
     private string _lastOnlineTime;
     private int _targetCoin;
+    private WareHouse _userWareHouse;
+    private Farmland _farmland;
     
     [XmlElement(ElementName = "coin")]
     public int Coin{
@@ -34,11 +33,6 @@ public class UserResource
         set{_numWorkers = value;}
         get{return _numWorkers; }
     }
-    [XmlElement(ElementName = "numLands")]
-    public int NumLands{
-        set{_numLands = value;}
-        get{return _numLands; }
-    }
     [XmlElement(ElementName = "taskFinishingTime")]
     public int TaskFinishingTime{
         set{_taskFinishingTime = value;}
@@ -49,20 +43,10 @@ public class UserResource
         set{_workerPrice = value;}
         get{return _workerPrice; }
     }
-    [XmlElement(ElementName = "landPrice")]
-    public int LandPrice{
-        set{_landPrice = value;}
-        get{return _landPrice; }
-    }
     [XmlElement(ElementName = "productDestroyTime")]
     public int ProductDestroyTime{
         set{_productDestroyTime = value;}
         get{return _productDestroyTime; }
-    }
-    [XmlElement(ElementName = "wareHouse")]
-    public WareHouse UserWareHouse{
-        set{_userWareHouse = value;}
-        get{return _userWareHouse; }
     }
     [XmlElement(ElementName = "lastOnlineTime")]
     public string LastOnlineTime{
@@ -73,6 +57,16 @@ public class UserResource
     public int TargetCoin{
         set{_targetCoin = value;}
         get{return _targetCoin; }
+    }
+    [XmlElement(ElementName = "wareHouse")]
+    public WareHouse UserWareHouse{
+        set{_userWareHouse = value;}
+        get{return _userWareHouse; }
+    }
+    [XmlElement(ElementName = "farmland")]
+    public Farmland Farmland{
+        set{_farmland = value;}
+        get{return _farmland; }
     }
 
     #region CoinAction
@@ -119,9 +113,10 @@ public class UserResource
 
     #region LandAction
     public bool BuyLand(){
-        if(IsEnoughCoint(_landPrice)){
-            _coin -= _landPrice;
-            _numLands++;
+        int price = _farmland.LandPrice;
+        if(IsEnoughCoint(price)){
+            _coin -= price;
+            _farmland.AddLand();
             return true;
         }
         return false;
