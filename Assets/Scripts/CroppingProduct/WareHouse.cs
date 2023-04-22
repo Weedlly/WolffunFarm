@@ -68,4 +68,13 @@ public class WareHouse
         }
         return null;
     }
+    public Product FindProduct(string name){
+        foreach (var bin in _productBins)
+        {
+            if(bin.ProductOfBin.Name == name){
+                return bin.ProductOfBin;
+            }
+        }
+        return null;
+    }
 }

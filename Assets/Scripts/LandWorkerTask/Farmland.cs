@@ -15,7 +15,6 @@ public class Farmland
     public List<Land> Lands{
         set{
             _lands = value;
-            _numLands = _lands.Count;
         }
         get{
             if(_lands == null){
@@ -37,6 +36,9 @@ public class Farmland
     public void AddLand(){
         _lands.Add(new Land());
         _numLands = _lands.Count;
+    }
+    public void IncreatingNumLand(){
+        AddLand();
     }
     
 }

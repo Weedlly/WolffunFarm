@@ -116,7 +116,7 @@ public class UserResource
         int price = _farmland.LandPrice;
         if(IsEnoughCoint(price)){
             _coin -= price;
-            _farmland.AddLand();
+            _farmland.IncreatingNumLand();
             return true;
         }
         return false;

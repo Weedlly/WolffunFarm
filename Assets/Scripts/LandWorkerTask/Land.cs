@@ -14,15 +14,21 @@ public class Land
 {
     private float _timeToEndOfLife;
     [SerializeField] private Product _growingProduct;
+    [SerializeField] private string _growingProductName;
     [SerializeField] private int _numberHarvested;
     [SerializeField] private int _currentLifecycle;
     [SerializeField] private float _nextStatusTime;
     [SerializeField] private LandStatusType _landStatus; 
 
-    [XmlElement(ElementName = "product")]
+    [XmlIgnore]
     public Product GrowingProduct{
         set {_growingProduct = value;}
         get{return _growingProduct;}
+    }
+    [XmlElement(ElementName = "product")]
+    public string GrowingProductName{
+        set {_growingProductName = value;}
+        get{return _growingProductName;}
     }
     [XmlElement(ElementName = "numberHarvested")]
     public int NumberHarvested{
@@ -44,40 +50,6 @@ public class Land
         set{_landStatus = value;}
         get{return _landStatus;}
     }
-    // void Start() {
-    //     _landStatus = LandStatusType.Idle;
-    // }
-    // public void UserActionHandler(){
-    //     WareHouse.Bin bin = GrowingProductController.ProductBinGrowing;
-    //     bool IsCropping = CroppingProductController.IsCroppingProduct;
-    //     if(bin != null && bin.IsEnoughSeed()){         
-    //         UserPlantingProduct(bin);
-    //     }
-    //     else if(IsCropping == true){
-    //         UserCroppingProduct();
-    //     }
-    // }
-    // private void UserPlantingProduct(WareHouse.Bin bin){
-    //     bin.UsingASeed();
-
-    //     _growingProduct = bin.ProductOfBin;
-
-    //     _nextStatusTime = DataLive.Instance.UserResource.Equipment.RemainTimeAfterBuff(_growingProduct.GrowingTime);
-
-    //     _numberHarvested = 0;
-    //     _currentLifecycle = 0;
-
-    //     _landStatus = LandStatusType.Growing;
-
-    //     LandTaskController.AddToLandTaskController(this);
-    // }
-
-    // private void UserCroppingProduct(){
-    //     if(_numberHarvested > 0 && (_landStatus == LandStatusType.Growing || _landStatus == LandStatusType.EndOfLife)){
-    //         Cropping();
-    //         NextStatus();
-    //     }
-    // } 
     public void NextStatus(){
         switch (_landStatus)
         {
@@ -95,6 +67,13 @@ public class Land
             }
         }
     }
+    
+    void ResetLand(){
+        _growingProduct = null;
+        _currentLifecycle = 0;
+        _numberHarvested = 0;
+        _nextStatusTime = 0f;
+    }
     public void Cropping(){
         Debug.Log(_numberHarvested);
         WareHouse.Bin bin = DataLive.Instance.UserResource.UserWareHouse.FindBinOfProduct(_growingProduct);
@@ -102,24 +81,6 @@ public class Land
             bin.HarvestingProduct(_numberHarvested);
             _numberHarvested = 0;
         }
-    }
-    void ResetLand(){
-        _growingProduct = null;
-        _currentLifecycle = 0;
-        _numberHarvested = 0;
-        _nextStatusTime = 0f;
-    }
-    void EndOfLifeAction(){
-        if(_nextStatusTime > 0f){
-            //Lifecycle time is over, collect all product
-            Cropping();
-        }
-        else{
-            // Lifecycle time is over, destroy all product
-            
-        }
-        ResetLand();
-        _landStatus = LandStatusType.Idle;
     }
     void GrowingAction(){
         _currentLifecycle ++;
@@ -131,5 +92,28 @@ public class Land
             _nextStatusTime = _growingProduct.GrowingTime;
             _landStatus = LandStatusType.Growing;
         }
+    }
+    void EndOfLifeAction(){
+        if(_nextStatusTime > 0f){
+            Cropping();
+        }
+        ResetLand();
+        _landStatus = LandStatusType.Idle;
+    }
+    public bool IsNeedWorker(){
+        if(_nextStatusTime <= 0 && _landStatus != LandStatusType.EndOfLife){
+            NextStatus();
+            return true;
+        }
+        else if((_nextStatusTime <= 0)){
+            return true;
+        }
+        return false;
+    }
+    public Product FindProduct(){
+        if(_growingProductName != null){
+            _growingProduct = DataLive.Instance.UserResource.UserWareHouse.FindProduct(_growingProductName);
+        }
+        return null;
     }
 }
