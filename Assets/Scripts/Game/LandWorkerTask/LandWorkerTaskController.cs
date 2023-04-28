@@ -30,12 +30,12 @@ public class LandWorkerTaskController : MonoBehaviour
         InitLand();
         UserActionButtonOnClick(_lands.Count);
         InitUsingLand();
-        Bootstrap();
 
         _workerDoingTime = userResource.TaskFinishingTime;
         _maxLand = _landViews.Count;
         _numTotalWorkers = userResource.NumWorkers;
         _numIdleWorkers = _numTotalWorkers;
+        Bootstrap();
     }
     private void InitLand()
     {

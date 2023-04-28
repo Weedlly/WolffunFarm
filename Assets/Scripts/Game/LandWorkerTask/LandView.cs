@@ -17,7 +17,6 @@ public class LandView : MonoBehaviour
         if (land.GrowingProduct != null)
         {
             _productTitle.text = land.GrowingProduct.Name;
-            //if (land.IsWorkerDoing())
             if (land.NextStatusTime < 0)
             {
                 _nextStatusTimeText.text = ((int)land.WorkerDoingTime).ToString() + " " + LandStatusType.WorkerDoing;

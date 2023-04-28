@@ -162,6 +162,7 @@ public class Land
         if (bin.UsingASeed())
         {
             Product product = bin.ProductOfBin;
+            _growingProduct = product;
             _growingProductName = product.Name;
             _oneCycleTime = DataLive.Instance.UserResource.Equipment.RemainTimeAfterBuff(product.GrowingTime);
             _nextStatusTime = _oneCycleTime;
